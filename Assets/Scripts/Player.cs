@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    public float walkSpeed = 2f;
+    private Rigidbody2D rb;
+    private CollisionChecker collisionChecker;
+    private SpriteRenderer spr;
 
-    public Rigidbody2D rb;
-    public CollisionChecker collisionChecker;
     public BoxCollider2D playerCollisionBox;
     public GameObject walnut;
     public GameObject walnutSprite;
 
 
+    public float walkSpeed = 2f;
     public float fallMultiplier = 3f;
     public float lowJumpMultiplier = 15f;
+    public float xLaunchSpeed = 5f;
+    public float yLaunchSpeed = 1.5f;
+
+    public Vector2 rightHandPosition = new Vector2(1.522f, 0.38f);
+    public Vector2 leftHandPosition = new Vector2(-1.522f, 0.38f);
 
 
     //flags
@@ -37,6 +43,7 @@ public class Player : MonoBehaviour {
     void Start() {
         collisionChecker = GetComponent<CollisionChecker>();
         rb = GetComponent<Rigidbody2D>();
+        spr = GetComponent<SpriteRenderer>();
 
         yOffset = playerCollisionBox.offset.y;
         ySize = playerCollisionBox.size.y;
@@ -48,21 +55,17 @@ public class Player : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.E)) {
-            Debug.Log("E");
-        }
-
         if (Input.GetKeyUp(KeyCode.E)) {
             canPickOrDrop = true;
         }
 
         ProcessPickAndDropInput();
         ProcessWalkInput();
+        ProcessLaunchInput();
     }
 
     public void ProcessWalkInput() {
         xInput = Input.GetAxis("Horizontal");
-
     }
 
     public void Walk() {
@@ -70,6 +73,10 @@ public class Player : MonoBehaviour {
         //rb.MovePosition(rb.position + newPos);
 
         rb.velocity = new Vector2(xInput * walkSpeed, rb.velocity.y);
+
+        if ((xInput > 0 && spr.flipX) || (xInput < 0 && !spr.flipX)) {
+            FlipPlayer();
+        }
     }
 
     public void SmoothFall() {
@@ -86,13 +93,9 @@ public class Player : MonoBehaviour {
     public void ProcessPickAndDropInput() {
         if (Input.GetKeyDown(KeyCode.E) && canPickOrDrop) {
             if (walnutEquipped) {
-                Debug.Log("dropped");
-                //drop
                 DropWalnut();
             }
-            else if(isNearWalnut) {
-                Debug.Log("picked");
-                //pickup
+            else if (isNearWalnut) {
                 PickWalnut();
             }
             canPickOrDrop = false;
@@ -132,5 +135,30 @@ public class Player : MonoBehaviour {
         playerCollisionBox.size = new Vector2(xExtendedSize, ySize);
 
         walnutEquipped = true;
+    }
+
+    public void FlipPlayer() {
+        spr.flipX = !spr.flipX;
+        walnutSprite.transform.localPosition = new Vector2(-walnutSprite.transform.localPosition.x, walnutSprite.transform.localPosition.y);
+        //iverter o imã também
+    }
+
+    public void ProcessLaunchInput() {
+        if (walnutEquipped && Input.GetKeyDown(KeyCode.Mouse0)) {
+            Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 dir = (worldMousePosition - transform.position).normalized;
+
+            float playerDistance = (worldMousePosition - transform.position).magnitude;
+            float walnutDistance = (worldMousePosition - walnutSprite.transform.position).magnitude;
+
+            if (walnutDistance > playerDistance) {
+                FlipPlayer();
+            }
+
+            DropWalnut();
+            Rigidbody2D walnutRb = walnut.GetComponent<Rigidbody2D>();
+            walnutRb.velocity = new Vector3(dir.x * xLaunchSpeed, dir.y * yLaunchSpeed, 0);
+            walnutRb.angularVelocity = 20f;
+        }
     }
 }
