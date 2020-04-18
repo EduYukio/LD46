@@ -11,14 +11,9 @@ public class Walnut : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        //SmoothFall();
+    
     }
 
-    public void SmoothFall() {
-        rb.gravityScale = 3;
 
-        if (rb.velocity.y < 0) {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
-        }
-    }
+
 }
