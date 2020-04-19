@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
     public BoxCollider2D playerCollisionBox;
     public GameObject walnut;
     public GameObject walnutSprite;
+    public GameObject magnetSprite;
 
 
     public float walkSpeed = 2f;
@@ -139,8 +140,13 @@ public class Player : MonoBehaviour {
 
     public void FlipPlayer() {
         spr.flipX = !spr.flipX;
-        walnutSprite.transform.localPosition = new Vector2(-walnutSprite.transform.localPosition.x, walnutSprite.transform.localPosition.y);
-        //iverter o imã também
+        Vector2 walnutLocalPos = walnutSprite.transform.localPosition;
+        Vector2 magnetLocalPos = magnetSprite.transform.localPosition;
+
+        walnutSprite.transform.localPosition = new Vector2(-walnutLocalPos.x, walnutLocalPos.y);
+
+        magnetSprite.transform.localPosition = new Vector2(-magnetLocalPos.x, magnetLocalPos.y);
+        magnetSprite.transform.localEulerAngles = new Vector3(0, 0, -magnetSprite.transform.localEulerAngles.z);
     }
 
     public void ProcessLaunchInput() {
