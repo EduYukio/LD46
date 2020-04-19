@@ -11,10 +11,16 @@ public class Walnut : MonoBehaviour {
     public bool canBeHit = true;
     public float immunityTime = 2f;
 
+    public GameObject walnutHearts_UI;
+    public GameObject walnutFace_UI;
     public HeartArray walnutHearts;
     public Animator walnutAnimator;
 
     void Start() {
+        if (SceneManager.GetActiveScene().name == "Tutorial") {
+            walnutHearts_UI.SetActive(false);
+            walnutFace_UI.SetActive(false);
+        }
     }
 
     void FixedUpdate() {

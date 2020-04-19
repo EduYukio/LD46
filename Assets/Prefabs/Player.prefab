@@ -221,7 +221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8260609083787122306
 Transform:
   m_ObjectHideFlags: 0
@@ -415,6 +415,7 @@ MonoBehaviour:
   walnut: {fileID: 0}
   walnutSprite: {fileID: 8260609082654901775}
   walnutScript: {fileID: 0}
+  playerAnimator: {fileID: 6362900837428192768}
   magnetSprite: {fileID: 8260609083787122307}
   playerHearts: {fileID: 0}
   maxHealth: 3
@@ -425,12 +426,15 @@ MonoBehaviour:
   magnetSpeed: 1.5
   xLaunchSpeed: 70
   yLaunchSpeed: 70
+  immunityTime: 2
   isNearWalnut: 0
   walnutEquipped: 0
   canPickOrDrop: 1
   isUsingMagnet: 0
   dead: 0
   canThrow: 1
+  canBeHit: 1
+  hasMagnet: 0
 --- !u!114 &8260609083922480356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,7 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   coll: {fileID: 0}
-  jumpForce: 15
+  jumpForce: 13
   jumpQuantity: 0
   player: {fileID: 8260609083922480357}
   walnut: {fileID: 0}

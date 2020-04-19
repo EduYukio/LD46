@@ -7,6 +7,7 @@ public class Zombie : MonoBehaviour {
 
     public Player player;
     public Walnut walnut;
+    private SpriteRenderer spr;
 
     public float moveSpeed = 1f;
     public int damage = 1;
@@ -16,6 +17,7 @@ public class Zombie : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<Player>();
         walnut = FindObjectOfType<Walnut>();
+        spr = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate() {
@@ -27,15 +29,22 @@ public class Zombie : MonoBehaviour {
             Vector3 dir = (player.transform.position - transform.position);
 
             rb.velocity = new Vector2(dir.x * moveSpeed, rb.velocity.y);
+
+            if (rb.velocity.x > 0) {
+                spr.flipX = true;
+            }
+            else {
+                spr.flipX = false;
+            }
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Player") {
+    private void OnCollisionStay2D(Collision2D collision) {
+        if (collision.gameObject.tag == "Player" && player.canBeHit) {
             player.TakeDamage(damage);
         }
 
-        if (collision.gameObject.tag == "Walnut") {
+        if (collision.gameObject.tag == "Walnut" && walnut.canBeHit) {
             if (collision.rigidbody.velocity.magnitude > velocityNeededToDie) {
                 walnut.TakeDamage(damage);
                 Destroy(transform.gameObject);
@@ -43,5 +52,14 @@ public class Zombie : MonoBehaviour {
         }
     }
 
+    //public void FlipSprite() {
+    //    spr.flipX = !spr.flipX;
+    //    Vector2 walnutLocalPos = walnutSprite.transform.localPosition;
+    //    Vector2 magnetLocalPos = magnetSprite.transform.localPosition;
 
+    //    walnutSprite.transform.localPosition = new Vector2(-walnutLocalPos.x, walnutLocalPos.y);
+
+    //    magnetSprite.transform.localPosition = new Vector2(-magnetLocalPos.x, magnetLocalPos.y);
+    //    magnetSprite.transform.localEulerAngles = new Vector3(0, 0, -magnetSprite.transform.localEulerAngles.z);
+    //}
 }

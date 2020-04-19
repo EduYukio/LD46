@@ -37,14 +37,9 @@ public class Player : MonoBehaviour {
     public bool dead = false;
     public bool canThrow = true;
     public bool canBeHit = true;
+    public bool hasMagnet = false;
 
     private float xInput;
-
-    //private float xNormalOffset = 0;
-    //private float xExtendedOffset = 0.55f;
-
-    //private float xNormalSize = 1.74f;
-    //private float xExtendedSize = 3.1f;
 
     private float yOffset;
     private float ySize;
@@ -170,6 +165,11 @@ public class Player : MonoBehaviour {
         //playerCollisionBox.size = new Vector2(xExtendedSize, ySize);
 
         walnutEquipped = true;
+
+        if (!walnutScript.walnutHearts_UI.activeSelf) {
+            walnutScript.walnutHearts_UI.SetActive(true);
+            walnutScript.walnutFace_UI.SetActive(true);
+        }
     }
 
     public void FlipPlayer() {
@@ -230,7 +230,7 @@ public class Player : MonoBehaviour {
     }
 
     public void ProcessMagnetInput() {
-        if (!walnutEquipped && Input.GetButton("Fire2")) {
+        if (hasMagnet && !walnutEquipped && Input.GetButton("Fire2")) {
             isUsingMagnet = true;
 
             Vector3 dir = (transform.position - walnut.transform.position).normalized;
