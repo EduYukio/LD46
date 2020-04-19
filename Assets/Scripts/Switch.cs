@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Switch : MonoBehaviour {
-    public GameObject gateConnected;
+    public Gate gateConnected;
     public bool playerIsOnSwitch = false;
     public bool walnutIsOnSwitch = false;
 
@@ -27,6 +27,13 @@ public class Switch : MonoBehaviour {
 
     void Update() {
         CheckForPresence();
+
+        if (switchState && gateConnected.closed) {
+            gateConnected.Open();
+        }
+        else if(!switchState && !gateConnected.closed) {
+            gateConnected.Close();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -144,6 +151,4 @@ public class Switch : MonoBehaviour {
         yield return new WaitForSeconds(waitTime);
         waitingToStabilize = false;
     }
-
-
 }

@@ -128,6 +128,16 @@ public class Player : MonoBehaviour {
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision) {
+        if (collision.tag == "Walnut") {
+            isNearWalnut = true;
+
+            if (isUsingMagnet) {
+                PickWalnut();
+            }
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.tag == "Walnut") {
             isNearWalnut = false;
