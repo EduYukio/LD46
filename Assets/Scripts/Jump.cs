@@ -8,22 +8,28 @@ public class Jump : MonoBehaviour {
     public float jumpForce = 15f;
     public int jumpQuantity = 0;
 
+    public Player player;
+    public Walnut walnut;
+
+
     void Start() {
         coll = GetComponent<CollisionChecker>();
         rb = GetComponent<Rigidbody2D>();
     }
 
     void Update() {
-        if (coll.onGround) {
-            jumpQuantity = 0;
-        }
+        if (!player.dead && !walnut.dead) {
+            if (coll.onGround) {
+                jumpQuantity = 0;
+            }
 
-        if (Input.GetButtonDown("Jump") && jumpQuantity == 0) {
-            JumpAction(Vector2.up, false);
-        }
+            if (Input.GetButtonDown("Jump") && jumpQuantity == 0) {
+                JumpAction(Vector2.up, false);
+            }
 
-        if (Input.GetButtonUp("Jump")) {
-            jumpQuantity++;
+            if (Input.GetButtonUp("Jump")) {
+                jumpQuantity++;
+            }
         }
     }
 

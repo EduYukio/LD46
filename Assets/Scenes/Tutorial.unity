@@ -28552,6 +28552,7 @@ MonoBehaviour:
   walnutEquipped: 0
   canPickOrDrop: 1
   isUsingMagnet: 0
+  dead: 0
 --- !u!114 &833959229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28605,6 +28606,7 @@ MonoBehaviour:
   coll: {fileID: 0}
   jumpForce: 15
   jumpQuantity: 0
+  player: {fileID: 833959228}
 --- !u!61 &833959232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -40049,10 +40051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8218777568e01489c8b932e2d33007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterImage: {fileID: 1324792165}
-  heartImage: {fileID: 2703101993301665259, guid: f4f527aae569e784ea08585e6fb51b02,
-    type: 3}
-  spaceBetweenHearts: 30
 --- !u!1 &1036125593
 GameObject:
   m_ObjectHideFlags: 0
@@ -40104,10 +40102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8218777568e01489c8b932e2d33007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterImage: {fileID: 561154654}
-  heartImage: {fileID: 574822710662655280, guid: 90543a57d74394842983003243c6c80b,
-    type: 3}
-  spaceBetweenHearts: 30
 --- !u!1 &1105896364
 GameObject:
   m_ObjectHideFlags: 0
@@ -40249,7 +40243,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -41168,6 +41162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
+  dead: 0
   walnutHearts: {fileID: 1030658093}
 --- !u!1 &2049413078
 GameObject:

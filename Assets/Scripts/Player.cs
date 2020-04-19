@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
     private Rigidbody2D rb;
@@ -10,6 +11,8 @@ public class Player : MonoBehaviour {
     public BoxCollider2D playerCollisionBox;
     public GameObject walnut;
     public GameObject walnutSprite;
+    public Walnut walnutScript;
+
     public GameObject magnetSprite;
     public HeartArray playerHearts;
 
@@ -31,6 +34,7 @@ public class Player : MonoBehaviour {
     public bool walnutEquipped = false;
     public bool canPickOrDrop = true;
     public bool isUsingMagnet = false;
+    public bool dead = false;
 
 
 
@@ -49,13 +53,10 @@ public class Player : MonoBehaviour {
         collisionChecker = GetComponent<CollisionChecker>();
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
+        walnutScript = walnut.GetComponent<Walnut>();
 
         yOffset = playerCollisionBox.offset.y;
         ySize = playerCollisionBox.size.y;
-
-        //for (int i = 0; i < health; i++) {
-        //    playerHearts.CreateHeart(0f);
-        //}
     }
 
     void FixedUpdate() {
@@ -68,10 +69,12 @@ public class Player : MonoBehaviour {
             canPickOrDrop = true;
         }
 
-        ProcessPickAndDropInput();
-        ProcessWalkInput();
-        ProcessLaunchInput();
-        ProcessMagnetInput();
+        if (!dead && !walnutScript.dead) {
+            ProcessPickAndDropInput();
+            ProcessWalkInput();
+            ProcessLaunchInput();
+            ProcessMagnetInput();
+        }
     }
 
 
@@ -84,9 +87,6 @@ public class Player : MonoBehaviour {
     }
 
     public void Walk() {
-        //Vector2 newPos = new Vector2(x * walkSpeed * Time.fixedDeltaTime, 0);
-        //rb.MovePosition(rb.position + newPos);
-
         rb.velocity = new Vector2(xInput * walkSpeed, rb.velocity.y);
 
         if ((xInput > 0 && spr.flipX) || (xInput < 0 && !spr.flipX)) {
@@ -209,19 +209,18 @@ public class Player : MonoBehaviour {
     }
 
     public void Die() {
-        //flashAnimationManager.FlashDeathAnimation();
-        //Time.timeScale = 0.3f;
-        //GameManager.Instance.ableToInput = false;
-        //playerAnimator.SetBool("IsDead", true);
-        Debug.Log("player dead =(");
+        StartCoroutine(ReloadSceneDelay(1.5f));
 
-        Time.timeScale = 0f;
-
-
+        //fazer algo bonito, pode ser alpha virando 0, tela piscando, qualqeur coisa
     }
 
-    //public void UpdateHeartArray() {
-    //    heartArray;
-    //    heartImage;
-    //}
+    IEnumerator ReloadSceneDelay(float waitTime) {
+        dead = true;
+        yield return new WaitForSeconds(waitTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
+
+
 }
