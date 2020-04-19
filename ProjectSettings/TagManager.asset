@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Walnut
+  - Button
+  - Lever
+  - PressurePlate
   layers:
   - Default
   - TransparentFX

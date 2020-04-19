@@ -17,7 +17,6 @@ public class HeartArray : MonoBehaviour {
         }
 
         if (lastHeart != null) {
-            //Destroy(lastHeart.gameObject);
             lastHeart.gameObject.SetActive(false);
         }
     }
