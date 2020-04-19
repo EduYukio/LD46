@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
     public float walkSpeed = 2f;
     public float fallMultiplier = 3f;
     public float lowJumpMultiplier = 15f;
+    public float magnetSpeed = 1f;
     public float xLaunchSpeed = 5f;
     public float yLaunchSpeed = 1.5f;
 
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour {
     public bool isNearWalnut = false;
     public bool walnutEquipped = false;
     public bool canPickOrDrop = true;
+    public bool isUsingMagnet = false;
 
 
 
@@ -63,7 +65,13 @@ public class Player : MonoBehaviour {
         ProcessPickAndDropInput();
         ProcessWalkInput();
         ProcessLaunchInput();
+        ProcessMagnetInput();
     }
+
+
+
+
+
 
     public void ProcessWalkInput() {
         xInput = Input.GetAxis("Horizontal");
@@ -106,6 +114,10 @@ public class Player : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Walnut") {
             isNearWalnut = true;
+
+            if (isUsingMagnet) {
+                PickWalnut();
+            }
         }
     }
 
@@ -165,6 +177,19 @@ public class Player : MonoBehaviour {
             Rigidbody2D walnutRb = walnut.GetComponent<Rigidbody2D>();
             walnutRb.velocity = new Vector3(dir.x * xLaunchSpeed, dir.y * yLaunchSpeed, 0);
             walnutRb.angularVelocity = 20f;
+        }
+    }
+
+    public void ProcessMagnetInput() {
+        if (!walnutEquipped && Input.GetButton("Fire2")) {
+            isUsingMagnet = true;
+
+            Vector3 dir = (transform.position - walnut.transform.position).normalized;
+            Rigidbody2D walnutRb = walnut.GetComponent<Rigidbody2D>();
+            walnutRb.velocity += new Vector2(dir.x * magnetSpeed, dir.y * magnetSpeed);
+        }
+        else {
+            isUsingMagnet = false;
         }
     }
 }
