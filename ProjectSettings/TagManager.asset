@@ -51,3 +51,6 @@ TagManager:
   - name: EquippedItem
     uniqueID: 1475442319
     locked: 0
+  - name: BeamOfLight
+    uniqueID: 716262743
+    locked: 0

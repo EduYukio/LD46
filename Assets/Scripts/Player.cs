@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
     public GameObject magnetSprite;
     public HeartArray playerHearts;
 
+    public int maxHealth = 3;
     public int health = 3;
 
     public float walkSpeed = 2f;
@@ -220,7 +221,8 @@ public class Player : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-
-
-
+    public void Regenerate() {
+        health = maxHealth;
+        playerHearts.RestoreAllHearts();
+    }
 }

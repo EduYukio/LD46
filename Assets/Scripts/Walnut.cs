@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Walnut : MonoBehaviour {
+    public int maxHealth = 5;
     public int health = 5;
+
     public bool dead = false;
 
     public HeartArray walnutHearts;
@@ -35,5 +37,10 @@ public class Walnut : MonoBehaviour {
         dead = true;
         yield return new WaitForSeconds(waitTime);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Regenerate() {
+        health = maxHealth;
+        walnutHearts.RestoreAllHearts();
     }
 }
