@@ -8,9 +8,9 @@ public class Walnut : MonoBehaviour {
     public HeartArray walnutHearts;
 
     void Start() {
-        for (int i = 0; i < health; i++) {
-            walnutHearts.CreateHeart();
-        }
+        //for (int i = 0; i < health; i++) {
+        //    walnutHearts.CreateHeart(-35f);
+        //}
     }
 
     void FixedUpdate() {

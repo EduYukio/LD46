@@ -53,9 +53,9 @@ public class Player : MonoBehaviour {
         yOffset = playerCollisionBox.offset.y;
         ySize = playerCollisionBox.size.y;
 
-        for (int i = 0; i < health; i++) {
-            playerHearts.CreateHeart();
-        }
+        //for (int i = 0; i < health; i++) {
+        //    playerHearts.CreateHeart(0f);
+        //}
     }
 
     void FixedUpdate() {
@@ -209,7 +209,15 @@ public class Player : MonoBehaviour {
     }
 
     public void Die() {
+        //flashAnimationManager.FlashDeathAnimation();
+        //Time.timeScale = 0.3f;
+        //GameManager.Instance.ableToInput = false;
+        //playerAnimator.SetBool("IsDead", true);
         Debug.Log("player dead =(");
+
+        Time.timeScale = 0f;
+
+
     }
 
     //public void UpdateHeartArray() {
