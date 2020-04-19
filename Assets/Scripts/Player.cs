@@ -11,7 +11,9 @@ public class Player : MonoBehaviour {
     public GameObject walnut;
     public GameObject walnutSprite;
     public GameObject magnetSprite;
+    public HeartArray playerHearts;
 
+    public int health = 3;
 
     public float walkSpeed = 2f;
     public float fallMultiplier = 3f;
@@ -50,6 +52,10 @@ public class Player : MonoBehaviour {
 
         yOffset = playerCollisionBox.offset.y;
         ySize = playerCollisionBox.size.y;
+
+        for (int i = 0; i < health; i++) {
+            playerHearts.CreateHeart();
+        }
     }
 
     void FixedUpdate() {
@@ -192,4 +198,22 @@ public class Player : MonoBehaviour {
             isUsingMagnet = false;
         }
     }
+
+    public void TakeDamage(int damage) {
+        health -= damage;
+        playerHearts.RemoveHeart();
+
+        if (health <= 0) {
+            Die();
+        }
+    }
+
+    public void Die() {
+        Debug.Log("player dead =(");
+    }
+
+    //public void UpdateHeartArray() {
+    //    heartArray;
+    //    heartImage;
+    //}
 }

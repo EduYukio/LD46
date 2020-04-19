@@ -3,17 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Walnut : MonoBehaviour {
-    public float fallMultiplier = 3f;
-    public Rigidbody2D rb;
+    public int health = 3;
+
+    public HeartArray walnutHearts;
 
     void Start() {
-        rb = GetComponent<Rigidbody2D>();
+        for (int i = 0; i < health; i++) {
+            walnutHearts.CreateHeart();
+        }
     }
 
     void FixedUpdate() {
-    
     }
 
+    public void TakeDamage(int damage) {
+        health -= damage;
+        walnutHearts.RemoveHeart();
 
+        if (health <= 0) {
+            Die();
+        }
+    }
 
+    public void Die() {
+        Debug.Log("nut dead =(");
+    }
 }
