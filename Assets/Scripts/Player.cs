@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
     public GameObject walnut;
     public GameObject walnutSprite;
     public Walnut walnutScript;
+    public Animator playerAnimator;
 
     public GameObject magnetSprite;
     public HeartArray playerHearts;
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour {
     public float magnetSpeed = 1f;
     public float xLaunchSpeed = 5f;
     public float yLaunchSpeed = 1.5f;
+    public float immunityTime = 2f;
+
 
     //flags
     public bool isNearWalnut = false;
@@ -33,6 +36,7 @@ public class Player : MonoBehaviour {
     public bool isUsingMagnet = false;
     public bool dead = false;
     public bool canThrow = true;
+    public bool canBeHit = true;
 
     private float xInput;
 
@@ -141,6 +145,8 @@ public class Player : MonoBehaviour {
 
     public void DropWalnut() {
         walnut.SetActive(true);
+        walnutScript.canBeHit = true;
+
         walnutSprite.SetActive(false);
 
         //playerCollisionBox.offset = new Vector2(xNormalOffset, yOffset);
@@ -153,7 +159,11 @@ public class Player : MonoBehaviour {
     }
 
     public void PickWalnut() {
+        walnutScript.canBeHit = false;
+        walnut.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         walnut.SetActive(false);
+
+
         walnutSprite.SetActive(true);
 
         //playerCollisionBox.offset = new Vector2(xExtendedOffset, yOffset);
@@ -174,25 +184,40 @@ public class Player : MonoBehaviour {
     }
 
     public void ProcessLaunchInput() {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && canThrow && walnutEquipped) {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && walnutEquipped) {
             Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 dir = (worldMousePosition - transform.position).normalized;
 
             float playerDistance = (worldMousePosition - transform.position).magnitude;
             float walnutDistance = (worldMousePosition - walnutSprite.transform.position).magnitude;
 
-            if (walnutDistance > playerDistance) {
+            bool needToFlip = walnutDistance > playerDistance;
+
+            if (needToFlip) {
                 FlipPlayer();
-                StartCoroutine(WaitToFlipAndCheckIfCanThrow(0.04f, dir));
+                if (canThrow) {
+                    //pode dar ruim ao virar e entrar na parede
+                    StartCoroutine(WaitToFlipAndCheckIfCanThrow(0.04f, dir, spr.flipX));
+                }
+                else {
+                    //se precisa virar e nao pode tacar, quer dizer que ja ta na parede e quer
+                    //tacar pro outro lado, entao nao precisa checar (só dá ruim se for
+                    //em um lugar mto pequeno, evita)
+                    ThrowWalnut(dir);
+                }
             }
-            else {
+            else if (canThrow) {
                 ThrowWalnut(dir);
             }
         }
     }
 
-    IEnumerator WaitToFlipAndCheckIfCanThrow(float waitTime, Vector3 dir) {
+    IEnumerator WaitToFlipAndCheckIfCanThrow(float waitTime, Vector3 dir, bool playerFlipX) {
         yield return new WaitForSeconds(waitTime);
+        if (playerFlipX != spr.flipX) {
+            FlipPlayer();
+        }
+
         if (canThrow) {
             ThrowWalnut(dir);
         }
@@ -221,9 +246,19 @@ public class Player : MonoBehaviour {
         health -= damage;
         playerHearts.RemoveHeart();
 
+        canBeHit = false;
+        playerAnimator.SetBool("IsBeingHit", true);
+        StartCoroutine(BlinkingAnimationTimer(immunityTime));
+
         if (health <= 0) {
             Die();
         }
+    }
+
+    IEnumerator BlinkingAnimationTimer(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        playerAnimator.SetBool("IsBeingHit", false);
+        canBeHit = true;
     }
 
     public void Die() {

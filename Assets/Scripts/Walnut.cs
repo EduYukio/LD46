@@ -8,8 +8,11 @@ public class Walnut : MonoBehaviour {
     public int health = 5;
 
     public bool dead = false;
+    public bool canBeHit = true;
+    public float immunityTime = 2f;
 
     public HeartArray walnutHearts;
+    public Animator walnutAnimator;
 
     void Start() {
     }
@@ -21,9 +24,19 @@ public class Walnut : MonoBehaviour {
         health -= damage;
         walnutHearts.RemoveHeart();
 
+        canBeHit = false;
+        walnutAnimator.SetBool("IsBeingHit", true);
+        StartCoroutine(BlinkingAnimationTimer(immunityTime));
+
         if (health <= 0) {
             Die();
         }
+    }
+
+    IEnumerator BlinkingAnimationTimer(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        walnutAnimator.SetBool("IsBeingHit", false);
+        canBeHit = true;
     }
 
     public void Die() {
