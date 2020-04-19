@@ -28395,7 +28395,7 @@ GameObject:
   - component: {fileID: 496286787}
   m_Layer: 0
   m_Name: RedGate
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28622,7 +28622,7 @@ GameObject:
   - component: {fileID: 521108002}
   m_Layer: 0
   m_Name: BlueGate
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28988,8 +28988,6 @@ MonoBehaviour:
   magnetSpeed: 1.5
   xLaunchSpeed: 70
   yLaunchSpeed: 70
-  rightHandPosition: {x: 1.522, y: 0.38}
-  leftHandPosition: {x: -1.522, y: 0.38}
   isNearWalnut: 0
   walnutEquipped: 0
   canPickOrDrop: 1
@@ -29092,7 +29090,7 @@ GameObject:
   - component: {fileID: 834389658}
   m_Layer: 8
   m_Name: GroundTileMap
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41917,7 +41915,7 @@ GameObject:
   - component: {fileID: 931107496}
   m_Layer: 0
   m_Name: GrayGate
-  m_TagString: Untagged
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43557,13 +43555,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2049413079}
   - component: {fileID: 2049413080}
+  - component: {fileID: 2049413081}
   m_Layer: 0
   m_Name: WalnutSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2049413079
 Transform:
   m_ObjectHideFlags: 0
@@ -43628,3 +43627,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &2049413081
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049413078}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.87, y: 3.42}
+    newSize: {x: 2.87, y: 3.42}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.87, y: 3.42}
+  m_EdgeRadius: 0

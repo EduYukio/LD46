@@ -8,6 +8,8 @@ TagManager:
   - Button
   - Lever
   - PressurePlate
+  - Ground
+  - Gate
   layers:
   - Default
   - TransparentFX

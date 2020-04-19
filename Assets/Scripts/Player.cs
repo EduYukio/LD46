@@ -26,26 +26,21 @@ public class Player : MonoBehaviour {
     public float xLaunchSpeed = 5f;
     public float yLaunchSpeed = 1.5f;
 
-    public Vector2 rightHandPosition = new Vector2(1.522f, 0.38f);
-    public Vector2 leftHandPosition = new Vector2(-1.522f, 0.38f);
-
-
     //flags
     public bool isNearWalnut = false;
     public bool walnutEquipped = false;
     public bool canPickOrDrop = true;
     public bool isUsingMagnet = false;
     public bool dead = false;
-
-
+    public bool canThrow = true;
 
     private float xInput;
 
-    private float xNormalOffset = 0;
-    private float xExtendedOffset = 0.55f;
+    //private float xNormalOffset = 0;
+    //private float xExtendedOffset = 0.55f;
 
-    private float xNormalSize = 2;
-    private float xExtendedSize = 3.1f;
+    //private float xNormalSize = 1.74f;
+    //private float xExtendedSize = 3.1f;
 
     private float yOffset;
     private float ySize;
@@ -108,10 +103,10 @@ public class Player : MonoBehaviour {
 
     public void ProcessPickAndDropInput() {
         if (Input.GetKeyDown(KeyCode.E) && canPickOrDrop) {
-            if (walnutEquipped) {
+            if (walnutEquipped && canThrow) {
                 DropWalnut();
             }
-            else if (isNearWalnut) {
+            else if (!walnutEquipped && isNearWalnut) {
                 PickWalnut();
             }
             canPickOrDrop = false;
@@ -148,8 +143,8 @@ public class Player : MonoBehaviour {
         walnut.SetActive(true);
         walnutSprite.SetActive(false);
 
-        playerCollisionBox.offset = new Vector2(xNormalOffset, yOffset);
-        playerCollisionBox.size = new Vector2(xNormalSize, ySize);
+        //playerCollisionBox.offset = new Vector2(xNormalOffset, yOffset);
+        //playerCollisionBox.size = new Vector2(xNormalSize, ySize);
 
         walnut.transform.position = walnutSprite.transform.position;
         walnut.transform.rotation = walnutSprite.transform.rotation;
@@ -161,8 +156,8 @@ public class Player : MonoBehaviour {
         walnut.SetActive(false);
         walnutSprite.SetActive(true);
 
-        playerCollisionBox.offset = new Vector2(xExtendedOffset, yOffset);
-        playerCollisionBox.size = new Vector2(xExtendedSize, ySize);
+        //playerCollisionBox.offset = new Vector2(xExtendedOffset, yOffset);
+        //playerCollisionBox.size = new Vector2(xExtendedSize, ySize);
 
         walnutEquipped = true;
     }
@@ -179,7 +174,7 @@ public class Player : MonoBehaviour {
     }
 
     public void ProcessLaunchInput() {
-        if (walnutEquipped && Input.GetKeyDown(KeyCode.Mouse0)) {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canThrow && walnutEquipped) {
             Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 dir = (worldMousePosition - transform.position).normalized;
 
@@ -188,13 +183,25 @@ public class Player : MonoBehaviour {
 
             if (walnutDistance > playerDistance) {
                 FlipPlayer();
+                StartCoroutine(WaitToFlipAndCheckIfCanThrow(0.04f, dir));
             }
-
-            DropWalnut();
-            Rigidbody2D walnutRb = walnut.GetComponent<Rigidbody2D>();
-            walnutRb.velocity = new Vector3(dir.x * xLaunchSpeed, dir.y * yLaunchSpeed, 0);
-            walnutRb.angularVelocity = 20f;
+            else {
+                ThrowWalnut(dir);
+            }
         }
+    }
+
+    IEnumerator WaitToFlipAndCheckIfCanThrow(float waitTime, Vector3 dir) {
+        yield return new WaitForSeconds(waitTime);
+        if (canThrow) {
+            ThrowWalnut(dir);
+        }
+    }
+    public void ThrowWalnut(Vector3 dir) {
+        DropWalnut();
+        Rigidbody2D walnutRb = walnut.GetComponent<Rigidbody2D>();
+        walnutRb.velocity = new Vector3(dir.x * xLaunchSpeed, dir.y * yLaunchSpeed, 0);
+        walnutRb.angularVelocity = 20f;
     }
 
     public void ProcessMagnetInput() {
