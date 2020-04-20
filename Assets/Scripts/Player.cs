@@ -17,6 +17,11 @@ public class Player : MonoBehaviour {
     public GameObject magnetSprite;
     public HeartArray playerHearts;
 
+    public AudioSource hurtSound;
+    public AudioSource imaSound;
+    public AudioSource blipSound;
+    public AudioSource errorSound;
+
     public int maxHealth = 3;
     public int health = 3;
 
@@ -70,6 +75,10 @@ public class Player : MonoBehaviour {
             ProcessLaunchInput();
             ProcessMagnetInput();
         }
+
+        if (isUsingMagnet && !imaSound.isPlaying) {
+            imaSound.Play();
+        }
     }
 
 
@@ -104,6 +113,9 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.E) && canPickOrDrop) {
             if (walnutEquipped && canThrow) {
                 DropWalnut();
+            }
+            else if (walnutEquipped && !canThrow) {
+                errorSound.Play();
             }
             else if (!walnutEquipped && isNearWalnut) {
                 PickWalnut();
@@ -151,6 +163,7 @@ public class Player : MonoBehaviour {
         walnut.transform.rotation = walnutSprite.transform.rotation;
 
         walnutEquipped = false;
+        blipSound.Play();
     }
 
     public void PickWalnut() {
@@ -170,6 +183,7 @@ public class Player : MonoBehaviour {
             walnutScript.walnutHearts_UI.SetActive(true);
             walnutScript.walnutFace_UI.SetActive(true);
         }
+        blipSound.Play();
     }
 
     public void FlipPlayer() {
@@ -209,6 +223,9 @@ public class Player : MonoBehaviour {
             else if (canThrow) {
                 ThrowWalnut(dir);
             }
+            else {
+                errorSound.Play();
+            }
         }
     }
 
@@ -220,6 +237,9 @@ public class Player : MonoBehaviour {
 
         if (canThrow) {
             ThrowWalnut(dir);
+        }
+        else {
+            errorSound.Play();
         }
     }
     public void ThrowWalnut(Vector3 dir) {
@@ -245,6 +265,7 @@ public class Player : MonoBehaviour {
     public void TakeDamage(int damage) {
         health -= damage;
         playerHearts.RemoveHeart();
+        hurtSound.Play();
 
         canBeHit = false;
         playerAnimator.SetBool("IsBeingHit", true);
@@ -262,7 +283,7 @@ public class Player : MonoBehaviour {
     }
 
     public void Die() {
-        StartCoroutine(ReloadSceneDelay(1.5f));
+        StartCoroutine(ReloadSceneDelay(0.5f));
 
         //fazer algo bonito, pode ser alpha virando 0, tela piscando, qualqeur coisa
     }

@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 9103868368678186684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.36, y: 2.84, z: -3.506836}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -140,8 +140,10 @@ MonoBehaviour:
   canBeHit: 1
   immunityTime: 2
   walnutHearts_UI: {fileID: 0}
+  walnutFace_UI: {fileID: 0}
   walnutHearts: {fileID: 0}
   walnutAnimator: {fileID: 9103868368678186678}
+  hurtSound: {fileID: 0}
 --- !u!95 &9103868368678186678
 Animator:
   serializedVersion: 3

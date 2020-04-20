@@ -10,7 +10,7 @@ public class Jump : MonoBehaviour {
 
     public Player player;
     public Walnut walnut;
-
+    public AudioSource jumpSound;
 
     void Start() {
         coll = GetComponent<CollisionChecker>();
@@ -34,7 +34,8 @@ public class Jump : MonoBehaviour {
     }
 
     public void JumpAction(Vector2 dir, bool wall) {
-        //rb.velocity = new Vector2(rb.velocity.x, 0);
+        //jumpSound.PlayOneShot(jumpSound.clip);
+        jumpSound.Play();
         rb.velocity = dir * jumpForce;
     }
 }

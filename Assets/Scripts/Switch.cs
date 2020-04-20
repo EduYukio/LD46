@@ -15,6 +15,10 @@ public class Switch : MonoBehaviour {
     public Sprite spriteOn;
     public Sprite spriteOff;
 
+    public AudioSource blipSound;
+    public AudioSource blipClosingSound;
+
+
     public bool waitingToStabilize = false;
 
 
@@ -30,9 +34,11 @@ public class Switch : MonoBehaviour {
 
         if (switchState && gateConnected.closed) {
             gateConnected.Open();
+            blipSound.Play();
         }
         else if(!switchState && !gateConnected.closed) {
             gateConnected.Close();
+            blipClosingSound.Play();
         }
     }
 
@@ -110,12 +116,14 @@ public class Switch : MonoBehaviour {
     private void ButtonOn() {
         switchState = true;
         sprRender.sprite = spriteOn;
+        blipSound.Play();
     }
 
     private void LeverOn() {
         if (Input.GetKeyDown(KeyCode.E)) {
             switchState = true;
             sprRender.sprite = spriteOn;
+            blipSound.Play();
         }
     }
 

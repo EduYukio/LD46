@@ -13,6 +13,7 @@ public class Magnet : MonoBehaviour {
 
     void Update() {
         if (playerIsNear && Input.GetKeyDown(KeyCode.E)) {
+            player.blipSound.Play();
             player.hasMagnet = true;
             player.magnetSprite.SetActive(true);
             Destroy(transform.gameObject);

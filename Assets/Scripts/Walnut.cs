@@ -15,6 +15,7 @@ public class Walnut : MonoBehaviour {
     public GameObject walnutFace_UI;
     public HeartArray walnutHearts;
     public Animator walnutAnimator;
+    public AudioSource hurtSound;
 
     void Start() {
         if (SceneManager.GetActiveScene().name == "Tutorial") {
@@ -30,6 +31,7 @@ public class Walnut : MonoBehaviour {
         health -= damage;
         walnutHearts.RemoveHeart();
 
+        hurtSound.Play();
         canBeHit = false;
         walnutAnimator.SetBool("IsBeingHit", true);
         StartCoroutine(BlinkingAnimationTimer(immunityTime));
@@ -46,7 +48,7 @@ public class Walnut : MonoBehaviour {
     }
 
     public void Die() {
-        StartCoroutine(ReloadSceneDelay(1.5f));
+        StartCoroutine(ReloadSceneDelay(0.5f));
 
         //fazer algo bonito, pode ser alpha virando 0, tela piscando, qualqeur coisa
         // mensagem no player falando OH NO
