@@ -179,14 +179,6 @@ public class Player : MonoBehaviour {
             walnutScript.walnutFace_UI.SetActive(true);
         }
         blipSound.Play();
-
-        StartCoroutine(DisableJumpTemporarily(0.2f));
-    }
-
-    IEnumerator DisableJumpTemporarily(float waitTime) {
-        jumpScript.enabled = false;
-        yield return new WaitForSeconds(waitTime);
-        jumpScript.enabled = true;
     }
 
     public void FlipPlayer() {
