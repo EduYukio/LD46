@@ -48,12 +48,14 @@ public class Player : MonoBehaviour {
 
     private float yOffset;
     private float ySize;
+    private Jump jumpScript;
 
     void Start() {
         collisionChecker = GetComponent<CollisionChecker>();
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
         walnutScript = walnut.GetComponent<Walnut>();
+        jumpScript = GetComponent<Jump>();
 
         yOffset = playerCollisionBox.offset.y;
         ySize = playerCollisionBox.size.y;
@@ -156,9 +158,6 @@ public class Player : MonoBehaviour {
 
         walnutSprite.SetActive(false);
 
-        //playerCollisionBox.offset = new Vector2(xNormalOffset, yOffset);
-        //playerCollisionBox.size = new Vector2(xNormalSize, ySize);
-
         walnut.transform.position = walnutSprite.transform.position;
         walnut.transform.rotation = walnutSprite.transform.rotation;
 
@@ -171,11 +170,7 @@ public class Player : MonoBehaviour {
         walnut.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
         walnut.SetActive(false);
 
-
         walnutSprite.SetActive(true);
-
-        //playerCollisionBox.offset = new Vector2(xExtendedOffset, yOffset);
-        //playerCollisionBox.size = new Vector2(xExtendedSize, ySize);
 
         walnutEquipped = true;
 
@@ -184,6 +179,14 @@ public class Player : MonoBehaviour {
             walnutScript.walnutFace_UI.SetActive(true);
         }
         blipSound.Play();
+
+        StartCoroutine(DisableJumpTemporarily(0.2f));
+    }
+
+    IEnumerator DisableJumpTemporarily(float waitTime) {
+        jumpScript.enabled = false;
+        yield return new WaitForSeconds(waitTime);
+        jumpScript.enabled = true;
     }
 
     public void FlipPlayer() {
@@ -242,6 +245,7 @@ public class Player : MonoBehaviour {
             errorSound.Play();
         }
     }
+
     public void ThrowWalnut(Vector3 dir) {
         DropWalnut();
         Rigidbody2D walnutRb = walnut.GetComponent<Rigidbody2D>();
