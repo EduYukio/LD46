@@ -11,7 +11,7 @@ public class Zombie : MonoBehaviour {
 
     public float moveSpeed = 1f;
     public int damage = 1;
-    public float velocityNeededToDie = 1.3f;
+    //public float velocityNeededToDie = 0.5f;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -45,21 +45,10 @@ public class Zombie : MonoBehaviour {
         }
 
         if (collision.gameObject.tag == "Walnut" && walnut.canBeHit) {
-            if (collision.rigidbody.velocity.magnitude > velocityNeededToDie) {
-                walnut.TakeDamage(damage);
-                Destroy(transform.gameObject);
-            }
+            //if (collision.rigidbody.velocity.magnitude > velocityNeededToDie) {
+            walnut.TakeDamage(damage);
+            Destroy(transform.gameObject);
+            //}
         }
     }
-
-    //public void FlipSprite() {
-    //    spr.flipX = !spr.flipX;
-    //    Vector2 walnutLocalPos = walnutSprite.transform.localPosition;
-    //    Vector2 magnetLocalPos = magnetSprite.transform.localPosition;
-
-    //    walnutSprite.transform.localPosition = new Vector2(-walnutLocalPos.x, walnutLocalPos.y);
-
-    //    magnetSprite.transform.localPosition = new Vector2(-magnetLocalPos.x, magnetLocalPos.y);
-    //    magnetSprite.transform.localEulerAngles = new Vector3(0, 0, -magnetSprite.transform.localEulerAngles.z);
-    //}
 }

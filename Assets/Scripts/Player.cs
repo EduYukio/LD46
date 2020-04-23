@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
     private SpriteRenderer spr;
 
     public BoxCollider2D playerCollisionBox;
+    public BoxCollider2D playerTriggerCollider;
     public GameObject walnut;
     public GameObject walnutSprite;
     public Walnut walnutScript;
@@ -78,8 +79,15 @@ public class Player : MonoBehaviour {
             ProcessMagnetInput();
         }
 
-        if (isUsingMagnet && !imaSound.isPlaying) {
-            imaSound.Play();
+        if (isUsingMagnet) {
+            if (!imaSound.isPlaying) {
+                imaSound.Play();
+            }
+
+            playerTriggerCollider.offset = new Vector2(0f, 0f);
+        }
+        else {
+            playerTriggerCollider.offset = new Vector2(0f, 0.61f);
         }
     }
 

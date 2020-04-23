@@ -921,6 +921,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e0e336046dfae4ea38d5b848a6d6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &799813203 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8260609083922480281, guid: 572e978a613ab5844829f723844b0adf,
+    type: 3}
+  m_PrefabInstance: {fileID: 1710412507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &824009472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2686,6 +2692,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8260609083922480356, guid: 572e978a613ab5844829f723844b0adf,
+        type: 3}
+      propertyPath: collisionSize.x
+      value: 0.84
+      objectReference: {fileID: 0}
     - target: {fileID: 8260609083922480357, guid: 572e978a613ab5844829f723844b0adf,
         type: 3}
       propertyPath: walnut
@@ -2726,6 +2737,21 @@ PrefabInstance:
       propertyPath: errorSound
       value: 
       objectReference: {fileID: 1924477838}
+    - target: {fileID: 8260609083922480357, guid: 572e978a613ab5844829f723844b0adf,
+        type: 3}
+      propertyPath: playerTriggerCollider
+      value: 
+      objectReference: {fileID: 799813203}
+    - target: {fileID: 8260609083922480357, guid: 572e978a613ab5844829f723844b0adf,
+        type: 3}
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260609083922480357, guid: 572e978a613ab5844829f723844b0adf,
+        type: 3}
+      propertyPath: health
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8260609083922480358, guid: 572e978a613ab5844829f723844b0adf,
         type: 3}
       propertyPath: walnut

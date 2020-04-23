@@ -2775,12 +2775,12 @@ PrefabInstance:
     - target: {fileID: 8260609083922480352, guid: 572e978a613ab5844829f723844b0adf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.33
+      value: -8.85
       objectReference: {fileID: 0}
     - target: {fileID: 8260609083922480352, guid: 572e978a613ab5844829f723844b0adf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.27
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 8260609083922480352, guid: 572e978a613ab5844829f723844b0adf,
         type: 3}
@@ -2867,6 +2867,21 @@ PrefabInstance:
       propertyPath: errorSound
       value: 
       objectReference: {fileID: 3801907386803738899}
+    - target: {fileID: 8260609083922480357, guid: 572e978a613ab5844829f723844b0adf,
+        type: 3}
+      propertyPath: playerTriggerCollider
+      value: 
+      objectReference: {fileID: 1699553485}
+    - target: {fileID: 8260609083922480357, guid: 572e978a613ab5844829f723844b0adf,
+        type: 3}
+      propertyPath: maxHealth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260609083922480357, guid: 572e978a613ab5844829f723844b0adf,
+        type: 3}
+      propertyPath: health
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8260609083922480358, guid: 572e978a613ab5844829f723844b0adf,
         type: 3}
       propertyPath: walnut
@@ -4264,6 +4279,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56e12aefd70eb1244b97522e80e3ba04, type: 3}
+--- !u!61 &1699553485 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 8260609083922480281, guid: 572e978a613ab5844829f723844b0adf,
+    type: 3}
+  m_PrefabInstance: {fileID: 843268854}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1705013563 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 7029454876368857822, guid: 3fdaa4ba473297f4494a291fa8634573,
@@ -4312,7 +4333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -238.85, y: -160.65}
+  m_AnchoredPosition: {x: -238.22, y: -160.65}
   m_SizeDelta: {x: 10.076849, y: 3.3762112}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1802274388
@@ -4333,8 +4354,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: An exit! But you can't leave that cute Walnut behind. Try to find a way
-    to get it!
+  m_text: An exit! But you can't leave that cute Walnut behind. Keep going, to see
+    if you can find a solution to this.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4400,13 +4421,13 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.18895721, y: 0, z: 2.693225, w: -0.24150753}
+  m_margin: {x: 0.18895721, y: 0, z: 1.6764708, w: -0.24150753}
   m_textInfo:
     textComponent: {fileID: 1802274388}
-    characterCount: 82
+    characterCount: 108
     spriteCount: 0
-    spaceCount: 17
-    wordCount: 18
+    spaceCount: 21
+    wordCount: 22
     linkCount: 0
     lineCount: 3
     pageCount: 1
@@ -6144,7 +6165,7 @@ PrefabInstance:
     - target: {fileID: 6821904985776185548, guid: 58bcd7909aa5de642b6690f8c2ca7223,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 95.29
+      value: 96.42
       objectReference: {fileID: 0}
     - target: {fileID: 6821904985776185548, guid: 58bcd7909aa5de642b6690f8c2ca7223,
         type: 3}
