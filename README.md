@@ -1,2 +1,2 @@
-# LD46
+# ProtectTheWalnut
 My entry for Ludum Dare 46 (Compo)
