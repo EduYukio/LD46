@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +35,7 @@ public class Jump : MonoBehaviour {
 
     public void JumpAction(Vector2 dir, bool wall) {
         //jumpSound.PlayOneShot(jumpSound.clip);
-        jumpSound.Play();
+        // jumpSound.Play();
         rb.velocity = dir * jumpForce;
     }
 }
