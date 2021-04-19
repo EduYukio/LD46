@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -396,7 +396,7 @@ Rigidbody2D:
   m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: ed1d11d3c76dd8d48b06a5e53f5323c8, type: 2}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &8260609083922480357
@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCollisionBox: {fileID: 8260609083922480355}
+  playerTriggerCollider: {fileID: 0}
   walnut: {fileID: 0}
   walnutSprite: {fileID: 8260609082654901775}
   walnutScript: {fileID: 0}
@@ -419,6 +420,9 @@ MonoBehaviour:
   magnetSprite: {fileID: 8260609083787122307}
   playerHearts: {fileID: 0}
   hurtSound: {fileID: 0}
+  imaSound: {fileID: 0}
+  blipSound: {fileID: 0}
+  errorSound: {fileID: 0}
   maxHealth: 3
   health: 3
   walkSpeed: 7
@@ -452,14 +456,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   onGround: 0
-  onWall: 0
-  onRightWall: 0
-  onLeftWall: 0
-  wallSide: 0
-  collisionRadius: 0.425
+  collisionSize: {x: 0.1, y: 0.1}
   bottomOffset: {x: 0, y: -0.72}
-  rightOffset: {x: 0.6, y: 0}
-  leftOffset: {x: -0.6, y: 0}
 --- !u!61 &8260609083922480355
 BoxCollider2D:
   m_ObjectHideFlags: 0

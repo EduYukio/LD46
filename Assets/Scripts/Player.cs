@@ -97,7 +97,7 @@ public class Player : MonoBehaviour {
 
 
     public void ProcessWalkInput() {
-        xInput = Input.GetAxis("Horizontal");
+        xInput = Input.GetAxisRaw("Horizontal");
     }
 
     public void Walk() {
