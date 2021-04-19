@@ -33,6 +33,7 @@ public class Player : MonoBehaviour {
     public float xLaunchSpeed = 5f;
     public float yLaunchSpeed = 1.5f;
     public float immunityTime = 2f;
+    public float maxFallSpeed = -15f;
 
 
     //flags
@@ -110,6 +111,11 @@ public class Player : MonoBehaviour {
 
     public void SmoothFall() {
         rb.gravityScale = 3;
+
+        if (rb.velocity.y < maxFallSpeed) {
+            rb.velocity = new Vector2(rb.velocity.x, maxFallSpeed);
+            return;
+        }
 
         if (rb.velocity.y < 0) {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;

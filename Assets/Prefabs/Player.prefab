@@ -427,7 +427,7 @@ MonoBehaviour:
   health: 3
   walkSpeed: 7
   fallMultiplier: 3
-  lowJumpMultiplier: 15
+  lowJumpMultiplier: 7
   magnetSpeed: 1.5
   xLaunchSpeed: 70
   yLaunchSpeed: 70
