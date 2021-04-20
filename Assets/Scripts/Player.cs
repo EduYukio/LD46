@@ -34,6 +34,9 @@ public class Player : MonoBehaviour {
     public float immunityTime = 2f;
     public float maxFallSpeed = -15f;
 
+    public float magnetTimer = 0f;
+    public float initialMagnetTimer = 0.5f;
+
 
     //flags
     public bool isNearWalnut = false;
@@ -79,6 +82,8 @@ public class Player : MonoBehaviour {
     }
 
     void Update() {
+        if (magnetTimer > 0) magnetTimer -= Time.deltaTime;
+
         if (Input.GetKeyUp(KeyCode.E)) {
             canPickOrDrop = true;
         }
@@ -155,7 +160,7 @@ public class Player : MonoBehaviour {
         if (collision.tag == "Walnut") {
             isNearWalnut = true;
 
-            if (isUsingMagnet) {
+            if (magnetTimer > 0) {
                 PickWalnut();
             }
         }
@@ -204,6 +209,7 @@ public class Player : MonoBehaviour {
             walnutScript.walnutFace_UI.SetActive(true);
         }
         blipSound.Play();
+        magnetTimer = 0;
     }
 
     public void FlipPlayer() {
@@ -274,6 +280,7 @@ public class Player : MonoBehaviour {
     public void ProcessMagnetInput() {
         if (hasMagnet && !walnutEquipped && Input.GetButton("Fire2")) {
             isUsingMagnet = true;
+            magnetTimer = initialMagnetTimer;
 
             Vector3 dir = (transform.position - walnut.transform.position).normalized;
             Rigidbody2D walnutRb = walnut.GetComponent<Rigidbody2D>();
