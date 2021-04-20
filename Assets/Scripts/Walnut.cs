@@ -24,9 +24,6 @@ public class Walnut : MonoBehaviour {
         }
     }
 
-    void FixedUpdate() {
-    }
-
     public void TakeDamage(int damage) {
         health -= damage;
         walnutHearts.RemoveHeart();
@@ -49,9 +46,6 @@ public class Walnut : MonoBehaviour {
 
     public void Die() {
         StartCoroutine(ReloadSceneDelay(0.5f));
-
-        //fazer algo bonito, pode ser alpha virando 0, tela piscando, qualqeur coisa
-        // mensagem no player falando OH NO
     }
 
     IEnumerator ReloadSceneDelay(float waitTime) {

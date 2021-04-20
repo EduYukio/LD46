@@ -30,8 +30,7 @@ public class Player : MonoBehaviour {
     public float fallMultiplier = 3f;
     public float lowJumpMultiplier = 15f;
     public float magnetSpeed = 1f;
-    public float xLaunchSpeed = 5f;
-    public float yLaunchSpeed = 1.5f;
+    public float launchSpeed = 20f;
     public float immunityTime = 2f;
     public float maxFallSpeed = -15f;
 
@@ -209,7 +208,8 @@ public class Player : MonoBehaviour {
     public void ProcessLaunchInput() {
         if (Input.GetKeyDown(KeyCode.Mouse0) && walnutEquipped) {
             Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 dir = (worldMousePosition - transform.position).normalized;
+            Vector2 rawDir = worldMousePosition - walnutSprite.transform.position;
+            Vector2 dir = rawDir.normalized;
 
             float playerDistance = (worldMousePosition - transform.position).magnitude;
             float walnutDistance = (worldMousePosition - walnutSprite.transform.position).magnitude;
@@ -255,7 +255,7 @@ public class Player : MonoBehaviour {
     public void ThrowWalnut(Vector3 dir) {
         DropWalnut();
         Rigidbody2D walnutRb = walnut.GetComponent<Rigidbody2D>();
-        walnutRb.velocity = new Vector3(dir.x * xLaunchSpeed, dir.y * yLaunchSpeed, 0);
+        walnutRb.velocity = dir * launchSpeed;
         walnutRb.angularVelocity = 20f;
     }
 
@@ -294,8 +294,6 @@ public class Player : MonoBehaviour {
 
     public void Die() {
         StartCoroutine(ReloadSceneDelay(0.5f));
-
-        //fazer algo bonito, pode ser alpha virando 0, tela piscando, qualqeur coisa
     }
 
     IEnumerator ReloadSceneDelay(float waitTime) {

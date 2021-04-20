@@ -431,7 +431,9 @@ MonoBehaviour:
   magnetSpeed: 1.5
   xLaunchSpeed: 70
   yLaunchSpeed: 70
+  launchSpeed: 35
   immunityTime: 2
+  maxFallSpeed: -15
   isNearWalnut: 0
   walnutEquipped: 0
   canPickOrDrop: 1
