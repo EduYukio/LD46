@@ -51,6 +51,8 @@ public class Player : MonoBehaviour {
     private float ySize;
     private Jump jumpScript;
 
+    public ParticleSystem magnetParticles;
+
     void Start() {
         collisionChecker = GetComponent<CollisionChecker>();
         rb = GetComponent<Rigidbody2D>();
@@ -82,6 +84,7 @@ public class Player : MonoBehaviour {
         if (isUsingMagnet) {
             if (!imaSound.isPlaying) {
                 imaSound.Play();
+                magnetParticles.Play();
             }
 
             playerTriggerCollider.offset = new Vector2(0f, 0f);
