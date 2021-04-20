@@ -51,7 +51,16 @@ public class Player : MonoBehaviour {
     private float ySize;
     private Jump jumpScript;
 
+    public static Vector3? checkpointPos = null;
+
     public ParticleSystem magnetParticles;
+
+    void Awake() {
+        if (checkpointPos != null) {
+            transform.position = (Vector3)checkpointPos;
+            walnut.transform.position = (Vector3)checkpointPos + new Vector3(2f, 0, 0);
+        }
+    }
 
     void Start() {
         collisionChecker = GetComponent<CollisionChecker>();

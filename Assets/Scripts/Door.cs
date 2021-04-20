@@ -15,6 +15,7 @@ public class Door : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         if (playerIsNear && player.walnutEquipped) {
+            Player.checkpointPos = null;
             SceneManager.LoadScene(NextLevel);
         }
     }

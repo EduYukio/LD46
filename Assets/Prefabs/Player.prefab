@@ -5241,8 +5241,8 @@ MonoBehaviour:
   walkSpeed: 7
   fallMultiplier: 3
   lowJumpMultiplier: 7
-  magnetSpeed: 1.5
-  launchSpeed: 35
+  magnetSpeed: 1.3
+  launchSpeed: 40
   immunityTime: 2
   maxFallSpeed: -15
   isNearWalnut: 0
