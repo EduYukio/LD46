@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Switch : MonoBehaviour {
     public Gate gateConnected;
@@ -18,9 +19,9 @@ public class Switch : MonoBehaviour {
     public AudioSource blipSound;
     public AudioSource blipClosingSound;
 
-
     public bool waitingToStabilize = false;
 
+    public UnityEvent leverActivated;
 
     void Start() {
         coll = GetComponent<BoxCollider2D>();
@@ -36,7 +37,7 @@ public class Switch : MonoBehaviour {
             gateConnected.Open();
             blipSound.Play();
         }
-        else if(!switchState && !gateConnected.closed) {
+        else if (!switchState && !gateConnected.closed) {
             gateConnected.Close();
             blipClosingSound.Play();
         }
@@ -124,6 +125,7 @@ public class Switch : MonoBehaviour {
             switchState = true;
             sprRender.sprite = spriteOn;
             blipSound.Play();
+            leverActivated.Invoke();
         }
     }
 

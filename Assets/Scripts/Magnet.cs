@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Magnet : MonoBehaviour {
     public Player player;
 
     public bool playerIsNear = false;
 
-    void Start() {
-
-    }
+    public UnityEvent magnetPicked;
 
     void Update() {
         if (playerIsNear && Input.GetKeyDown(KeyCode.E)) {
@@ -17,6 +16,7 @@ public class Magnet : MonoBehaviour {
             player.hasMagnet = true;
             player.magnetSprite.SetActive(true);
             Destroy(transform.gameObject);
+            magnetPicked.Invoke();
         }
     }
 
